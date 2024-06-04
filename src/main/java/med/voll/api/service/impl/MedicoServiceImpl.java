@@ -31,7 +31,7 @@ public class MedicoServiceImpl implements MedicoService {
 
     @Override
     public Page<ListagemMedicoDTO> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-        return repository.findAll(paginacao).map(medico -> mapper.toListagemDTO(medico));
+        return repository.findAllByAtivoTrue(paginacao).map(medico -> mapper.toListagemDTO(medico));
     }
 
     @Override
@@ -40,6 +40,13 @@ public class MedicoServiceImpl implements MedicoService {
         Medico medico = obterMedicoOuLancarException(id);
         Medico medicoAtualizado = mapper.toEntity(medico, dto);
         return mapper.toDTO(medicoAtualizado);
+    }
+
+    @Override
+    @Transactional
+    public void deletar(Long id) {
+        Medico medico = obterMedicoOuLancarException(id);
+        medico.setAtivo(Boolean.FALSE);
     }
 
     public Medico obterMedicoOuLancarException(Long id) {

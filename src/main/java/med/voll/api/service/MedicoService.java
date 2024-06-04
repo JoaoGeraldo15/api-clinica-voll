@@ -12,4 +12,6 @@ public interface MedicoService {
     Page<ListagemMedicoDTO> listar(Pageable paginacao);
 
     CadastroMedicoDTO atualizar(Long id, AtualizarMedicoDTO dto);
+
+    void deletar(Long id);
 }
