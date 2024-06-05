@@ -43,4 +43,6 @@ public class Medico {
 
     @Embedded
     private Endereco endereco;
+
+    private Boolean ativo = Boolean.TRUE;
 }
