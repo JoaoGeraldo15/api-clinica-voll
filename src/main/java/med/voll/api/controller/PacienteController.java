@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import med.voll.api.model.dto.AtualizarPacienteDTO;
 import med.voll.api.model.dto.CadastroPacienteDTO;
+import med.voll.api.model.dto.DetalhamentoPacienteDTO;
 import med.voll.api.model.dto.ListagemPacienteDTO;
 import med.voll.api.service.PacienteService;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("pacientes")
@@ -25,9 +27,17 @@ public class PacienteController {
 
     private PacienteService service;
 
+    @GetMapping("/{id}")
+    public ResponseEntity<DetalhamentoPacienteDTO> consultar(@PathVariable Long id) {
+        return ResponseEntity.ok(service.consultar(id));
+    }
+
     @PostMapping
-    public ResponseEntity<CadastroPacienteDTO> cadastrar(@RequestBody @Valid CadastroPacienteDTO pacienteDTO) {
-        return ResponseEntity.ok(service.cadastrar(pacienteDTO));
+    public ResponseEntity<DetalhamentoPacienteDTO> cadastrar(@RequestBody @Valid CadastroPacienteDTO pacienteDTO, UriComponentsBuilder uriBuild) {
+        DetalhamentoPacienteDTO pacienteCadastrado = service.cadastrar(pacienteDTO);
+        var uri = uriBuild.path("/pacientes/{id}").buildAndExpand(pacienteCadastrado.id()).toUri();
+
+        return ResponseEntity.created(uri).body(pacienteCadastrado);
     }
 
     @GetMapping
@@ -36,7 +46,7 @@ public class PacienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CadastroPacienteDTO> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizarPacienteDTO dto) {
+    public ResponseEntity<DetalhamentoPacienteDTO> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizarPacienteDTO dto) {
         return ResponseEntity.ok(service.atualizar(id, dto));
     }
 

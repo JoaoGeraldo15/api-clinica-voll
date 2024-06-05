@@ -3,6 +3,7 @@ package med.voll.api.service.impl;
 import lombok.AllArgsConstructor;
 import med.voll.api.model.dto.AtualizarPacienteDTO;
 import med.voll.api.model.dto.CadastroPacienteDTO;
+import med.voll.api.model.dto.DetalhamentoPacienteDTO;
 import med.voll.api.model.dto.ListagemPacienteDTO;
 import med.voll.api.model.entity.Paciente;
 import med.voll.api.model.mapper.PacienteMapper;
@@ -24,9 +25,9 @@ public class PacienteServiceImpl implements PacienteService {
 
     @Override
     @Transactional
-    public CadastroPacienteDTO cadastrar(CadastroPacienteDTO pacienteDTO) {
+    public DetalhamentoPacienteDTO cadastrar(CadastroPacienteDTO pacienteDTO) {
         Paciente paciente = repository.save(mapper.toEntity(pacienteDTO));
-        return mapper.toDTO(paciente);
+        return mapper.toDetalhamentoDTO(paciente);
     }
 
     @Override
@@ -36,10 +37,10 @@ public class PacienteServiceImpl implements PacienteService {
 
     @Override
     @Transactional
-    public CadastroPacienteDTO atualizar(Long id, AtualizarPacienteDTO dto) {
+    public DetalhamentoPacienteDTO atualizar(Long id, AtualizarPacienteDTO dto) {
         Paciente paciente = obterPacienteOuLancarException(id);
         Paciente pacienteAtualizado = mapper.toEntity(paciente, dto);
-        return mapper.toDTO(pacienteAtualizado);
+        return mapper.toDetalhamentoDTO(pacienteAtualizado);
     }
 
     @Override
@@ -47,6 +48,11 @@ public class PacienteServiceImpl implements PacienteService {
     public void deletar(Long id) {
         Paciente paciente = obterPacienteOuLancarException(id);
         paciente.setAtivo(Boolean.FALSE);
+    }
+
+    @Override
+    public DetalhamentoPacienteDTO consultar(Long id) {
+        return mapper.toDetalhamentoDTO(obterPacienteOuLancarException(id));
     }
 
     private Paciente obterPacienteOuLancarException(Long id) {

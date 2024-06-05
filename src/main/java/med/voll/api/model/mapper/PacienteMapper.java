@@ -2,6 +2,7 @@ package med.voll.api.model.mapper;
 
 import med.voll.api.model.dto.AtualizarPacienteDTO;
 import med.voll.api.model.dto.CadastroPacienteDTO;
+import med.voll.api.model.dto.DetalhamentoPacienteDTO;
 import med.voll.api.model.dto.ListagemPacienteDTO;
 import med.voll.api.model.entity.Paciente;
 import org.mapstruct.Mapper;
@@ -15,6 +16,8 @@ public interface PacienteMapper {
     Paciente toEntity(CadastroPacienteDTO dto);
 
     CadastroPacienteDTO toDTO(Paciente entity);
+
+    DetalhamentoPacienteDTO toDetalhamentoDTO(Paciente entity);
 
     ListagemPacienteDTO toListagemDTO(Paciente entity);
 
