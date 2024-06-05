@@ -9,24 +9,24 @@ import med.voll.api.model.enums.EspecialidadeEnum;
 
 public record CadastroMedicoDTO(
 
-        @NotBlank
+        @NotBlank(message = "{nome.obrigatorio}")
         String nome,
 
-        @NotBlank
+        @NotBlank(message = "{telefone.obrigatorio}")
         String telefone,
 
-        @NotBlank
-        @Email
+        @NotBlank(message = "{email.obrigatorio}")
+        @Email(message = "{email.invalido}")
         String email,
 
-        @NotBlank
-        @Pattern(regexp = "\\d{4,6}")
+        @NotBlank(message = "{crm.obrigatorio}")
+        @Pattern(regexp = "\\d{4,6}", message = "{crm.invalido}")
         String crm,
 
-        @NotNull
+        @NotNull(message = "{especialidade.obrigatoria}")
         EspecialidadeEnum especialidade,
 
-        @NotNull
+        @NotNull(message = "{endereco.obrigatorio}")
         @Valid
         EnderecoDTO endereco) {
 }
