@@ -1,4 +1,4 @@
-package med.voll.api.infra;
+package med.voll.api.infra.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import med.voll.api.service.exception.EntidadeNaoEncontrada;
