@@ -1,9 +1,10 @@
 package med.voll.api.service;
 
-import med.voll.api.model.dto.AtualizarPacienteDTO;
-import med.voll.api.model.dto.CadastroPacienteDTO;
-import med.voll.api.model.dto.DetalhamentoPacienteDTO;
-import med.voll.api.model.dto.ListagemPacienteDTO;
+import med.voll.api.model.dto.paciente.AtualizarPacienteDTO;
+import med.voll.api.model.dto.paciente.CadastroPacienteDTO;
+import med.voll.api.model.dto.paciente.DetalhamentoPacienteDTO;
+import med.voll.api.model.dto.paciente.ListagemPacienteDTO;
+import med.voll.api.model.entity.Paciente;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,4 +19,8 @@ public interface PacienteService {
     void deletar(Long id);
 
     DetalhamentoPacienteDTO consultar(Long id);
+
+    Paciente obterPacienteOuLancarException(Long id);
+
+    Boolean verificarPacienteAtivo(Long idPaciente);
 }

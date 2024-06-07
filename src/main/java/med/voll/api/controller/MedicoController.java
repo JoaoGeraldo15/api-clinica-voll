@@ -2,10 +2,10 @@ package med.voll.api.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import med.voll.api.model.dto.AtualizarMedicoDTO;
-import med.voll.api.model.dto.CadastroMedicoDTO;
-import med.voll.api.model.dto.DetalhamentoMedicoDTO;
-import med.voll.api.model.dto.ListagemMedicoDTO;
+import med.voll.api.model.dto.medico.AtualizarMedicoDTO;
+import med.voll.api.model.dto.medico.CadastroMedicoDTO;
+import med.voll.api.model.dto.medico.DetalhamentoMedicoDTO;
+import med.voll.api.model.dto.medico.ListagemMedicoDTO;
 import med.voll.api.service.MedicoService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,11 +1,12 @@
 package med.voll.api.service.impl;
 
 import lombok.AllArgsConstructor;
-import med.voll.api.model.dto.AtualizarMedicoDTO;
-import med.voll.api.model.dto.CadastroMedicoDTO;
-import med.voll.api.model.dto.DetalhamentoMedicoDTO;
-import med.voll.api.model.dto.ListagemMedicoDTO;
+import med.voll.api.model.dto.medico.AtualizarMedicoDTO;
+import med.voll.api.model.dto.medico.CadastroMedicoDTO;
+import med.voll.api.model.dto.medico.DetalhamentoMedicoDTO;
+import med.voll.api.model.dto.medico.ListagemMedicoDTO;
 import med.voll.api.model.entity.Medico;
+import med.voll.api.model.enums.EspecialidadeEnum;
 import med.voll.api.model.mapper.MedicoMapper;
 import med.voll.api.repository.MedicoRepository;
 import med.voll.api.service.exception.EntidadeNaoEncontrada;
@@ -15,6 +16,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 
 @Service
 @AllArgsConstructor
@@ -55,9 +58,20 @@ public class MedicoServiceImpl implements MedicoService {
         return mapper.toDetalhamentoDTO(obterMedicoOuLancarException(id));
     }
 
+    @Override
     public Medico obterMedicoOuLancarException(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontrada(String.format("Médico com id %d não foi encontrado", id)));
+    }
+
+    @Override
+    public Medico buscarMedicoLivreAleatorioNaData(EspecialidadeEnum especialidade, LocalDateTime data) {
+        return repository.obterMedicoLivreAleatorio(especialidade, data);
+    }
+
+    @Override
+    public boolean verificarMedicoAtivo(Long idMedico) {
+        return repository.existsByIdAndAtivoTrue(idMedico);
     }
 
 }
