@@ -2,6 +2,7 @@ package med.voll.api.infra.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import med.voll.api.service.exception.EntidadeNaoEncontrada;
+import med.voll.api.service.exception.ValidacaoRegraNegocioException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -26,6 +27,12 @@ public class ExceptionHandlerConfig {
 
         StandardError error = new StandardError(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(), erros.toString(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(ValidacaoRegraNegocioException.class)
+    public ResponseEntity<StandardError> ValidacaoRegraNegocioHandler(ValidacaoRegraNegocioException ex, HttpServletRequest request) {
+        StandardError error = new StandardError(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(), ex.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
     private record ValidationError(String campo, String mensagem) {
