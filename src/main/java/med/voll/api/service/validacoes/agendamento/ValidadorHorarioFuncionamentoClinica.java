@@ -1,4 +1,4 @@
-package med.voll.api.service.validacoes;
+package med.voll.api.service.validacoes.agendamento;
 
 import med.voll.api.model.dto.DadosAgendamentoConsultaDTO;
 import med.voll.api.service.exception.ValidacaoRegraNegocioException;

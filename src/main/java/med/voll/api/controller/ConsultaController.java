@@ -3,8 +3,10 @@ package med.voll.api.controller;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import med.voll.api.model.dto.DadosAgendamentoConsultaDTO;
+import med.voll.api.model.dto.DadosCancelamentoConsultaDTO;
 import med.voll.api.service.ConsultaService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,5 +22,11 @@ public class ConsultaController {
     @PostMapping
     public ResponseEntity<DadosAgendamentoConsultaDTO> agendarConsulta(@RequestBody @Valid DadosAgendamentoConsultaDTO dados) {
         return ResponseEntity.ok(consultaService.agendarConsulta(dados));
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> cancelarConsulta(@RequestBody @Valid DadosCancelamentoConsultaDTO dadosCancelamentoConsulta) {
+        consultaService.cancelarConsulta(dadosCancelamentoConsulta);
+        return ResponseEntity.noContent().build();
     }
 }

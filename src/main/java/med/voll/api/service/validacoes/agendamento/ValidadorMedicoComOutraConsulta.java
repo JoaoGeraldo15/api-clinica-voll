@@ -1,4 +1,4 @@
-package med.voll.api.service.validacoes;
+package med.voll.api.service.validacoes.agendamento;
 
 import lombok.AllArgsConstructor;
 import med.voll.api.model.dto.DadosAgendamentoConsultaDTO;
@@ -14,7 +14,7 @@ public class ValidadorMedicoComOutraConsulta implements ValidadorAgendamentoCons
 
     public void validar(DadosAgendamentoConsultaDTO dadosAgendamento) {
 
-        var medicoJaComConsultaNaData = repository.existsByMedicoIdAndData(dadosAgendamento.idMedico(), dadosAgendamento.data());
+        var medicoJaComConsultaNaData = repository.existsByMedicoIdAndDataAndMotivoCancelamentoIsNull(dadosAgendamento.idMedico(), dadosAgendamento.data());
 
         if (Boolean.TRUE.equals(medicoJaComConsultaNaData)) {
             throw new ValidacaoRegraNegocioException("O médico já possui uma consulta na data informada!");
