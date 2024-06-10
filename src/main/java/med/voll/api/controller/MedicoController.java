@@ -1,5 +1,6 @@
 package med.voll.api.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import med.voll.api.model.dto.medico.AtualizarMedicoDTO;
@@ -23,6 +24,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RestController
 @RequestMapping("medicos")
 @AllArgsConstructor
+@SecurityRequirement(name = "bearer-key")
 public class MedicoController {
 
     private MedicoService service;
